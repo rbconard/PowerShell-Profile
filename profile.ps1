@@ -18,21 +18,18 @@ Write-Host "Loading --> Microsoft.PowerShell.Security --> Process Time: "`
 (Measure-Command {Import-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
 Write-Host "Loading --> Microsoft.WSMan.Management --> Process Time: "`
 (Measure-Command {Import-Module Microsoft.WSMan.Management -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host ""
-Write-Host "Adding Snapin's"
-Write-Host ""
-Write-Host "Adding PS Snapin --> Quest.ActiveRoles.ADManagement --> Process Time: "`
-(Measure-Command {Add-PSSnapin Quest.ActiveRoles.ADManagement -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host "Adding PS Snapin --> VMware.VimAutomation.Core --> Process Time: "`
-(Measure-Command {Add-PSSnapin VMware.VimAutomation.Core -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host "Adding PS Snapin --> VMware.VimAutomation.License --> Process Time: "`
-(Measure-Command {Add-PSSnapin VMware.VimAutomation.License -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host "Adding PS Snapin --> VMware.DeployAutomation --> Process Time: "`
-(Measure-Command {Add-PSSnapin VMware.DeployAutomation -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host "Adding PS Snapin --> VMware.ImageBuilder --> Process Time: "`
-(Measure-Command {Add-PSSnapin VMware.ImageBuilder -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
-Write-Host "Adding PS Snapin --> VMware.VimAutomation.Cloud --> Process Time: "`
-(Measure-Command {Add-PSSnapin VMware.VimAutomation.Cloud -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
+Write-Host "Loading --> KcsModule --> Process Time: "`
+(Measure-Command {Import-Module KcsModule -ErrorAction SilentlyContinue -WarningAction SilentlyContinue}).ToString()
+
+$ScriptDrive = '\\cpkcscriptp1.kcscp.corp\d$'
+$HomeDrive = '\\kcscp.corp\DFS\HomeDrives\KCHomeDir\krxc13'
+
+$DDrive = Get-PSDrive D -ErrorAction SilentlyContinue -ErrorVariable DEV
+$HDrive = Get-PSDrive H -ErrorAction SilentlyContinue -ErrorVariable HEV
+
+If ($DEV) { New-PSDrive -Name D -PSProvider FileSystem -Root $ScriptDrive -Persist }
+If ($HEV) { New-PSDrive -Name H -PSProvider FileSystem -Root $HomeDrive -Persist }
+
 Write-Host ""
 Write-Host "Initialzation complete" -ForegroundColor Yellow -BackgroundColor DarkBlue
 Write-Host ""
